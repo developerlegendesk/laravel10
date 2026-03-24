@@ -38,7 +38,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        return redirect()->route('login'); // disable registration
     }
 
     /**

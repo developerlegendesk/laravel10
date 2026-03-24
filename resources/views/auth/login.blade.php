@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{{ config('app.name') }} — Sign In</title>
+    <title>{{ $setting->app_name }} - Sign In</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 
@@ -74,21 +74,30 @@
         }
 
         .brand-icon {
-            width: 40px; height: 40px;
+            width: 150px;          /* Thoda bada ki logo fit ho jaye */
+            height: 150px;
             background: rgba(255,255,255,0.15);
             border: 1px solid rgba(255,255,255,0.25);
-            border-radius: 10px;
+            border-radius: 12px;  /* Rounded corners thodi smooth */
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
-            font-size: 16px;
+            overflow: hidden;     /* Image container se bahar na jaye */
+        }
+
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;  /* Maintain logo aspect ratio */
         }
 
         .brand-name {
             color: #fff;
             font-size: 1.1rem;
             font-weight: 600;
+            white-space: nowrap;   /* Long names break na ho */
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .left-headline {
@@ -338,9 +347,9 @@
     <div class="auth-left">
         <div class="brand">
             <div class="brand-icon">
-                <i class="fas fa-shield-alt"></i>
+                <img src="{{ $setting->app_logo ? asset(Storage::url($setting->app_logo)) : asset('images/default-logo.png') }}" alt="Logo">
             </div>
-            <span class="brand-name">{{ config('app.name') }}</span>
+            <span class="brand-name">{{ $setting->app_name }}</span>
         </div>
 
         <div class="left-headline">
@@ -418,22 +427,22 @@
                 </div>
 
                 {{-- Remember + Forgot --}}
-                <div class="row-between">
+                {{-- <div class="row-between">
                     <label class="checkbox-wrap">
                         <input type="checkbox" name="remember">
                         Remember me
                     </label>
                     <a href="{{ route('password.request') }}" class="forgot-link">Forgot password?</a>
-                </div>
+                </div> --}}
 
                 <button type="submit" class="btn-signin">Sign In</button>
             </form>
 
-            <div class="divider">or</div>
 
-            <div class="register-link">
+
+            {{-- <div class="register-link">
                 Don't have an account? <a href="{{ route('register') }}">Create one</a>
-            </div>
+            </div> --}}
 
         </div>
     </div>

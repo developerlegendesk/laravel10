@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +23,21 @@ Route::get('/', function () {
 });
 
 
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
-
-
-
-// Route::group(['prefix'=>'admin'], function(){
-
-// });
-
 Auth::routes();
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
+    //settings
+    Route::get('settings/edit', [SettingController::class,'edit'])->name('settings.edit');
+    Route::put('settings/update-general', [SettingController::class,'updateGeneralSettings'])->name('settings.updateGeneral');
+    Route::put('settings/update-email-social', [SettingController::class,'updateEmailSocialSettings'])->name('settings.updateEmailSocial');
+
+    //Users
+    Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::post('/user/{id}/change-password', [UserController::class, 'changePassword'])->name('user.change-password');
+
+});
+
+

@@ -16,8 +16,8 @@
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <!-- User image -->
                 <li class="user-header bg-primary">
-                    <img  
-                         class="img-circle elevation-2"
+                    <img
+                         class="img-circle elevation-2" src="{{ asset('images/1579784693.png') }}"
                          alt="User Image">
                     <p>
                         {{ Auth::user()->name }}
@@ -26,7 +26,7 @@
                 </li>
                 <!-- Menu Footer-->
                 <li class="user-footer">
-                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                    <a href="{{ route('user.edit') }}" class="btn btn-default btn-flat">Profile</a>
                     <a href="#" class="btn btn-default btn-flat float-right"
                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         Sign out
